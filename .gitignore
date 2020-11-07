@@ -1,0 +1,21 @@
+#Makefile
+Makefile
+
+#Carpetas de prueba
+casos/
+salidas/
+Tests/
+
+#Archivos objeto
+*.o
+*.o-tsan
+
+#Ejecutables
+client
+server
+
+#Extras
+*.zip
+*.txt
+filter_options
+vgcore.*
