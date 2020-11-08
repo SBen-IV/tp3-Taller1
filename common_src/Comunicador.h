@@ -9,7 +9,6 @@ class Comunicador {
 private:
 	Socket socket;
 public:
-	Comunicador(const char* puerto);
 	Comunicador(const char* ip, const char* puerto);
 	void conectar();
 	void iniciarCliente();

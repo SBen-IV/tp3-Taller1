@@ -11,6 +11,8 @@
 #include "ErrorConectar.h"
 #include "ErrorSocket.h"
 
+#define TAM_BUFFER 3
+
 class Socket {
 private:
 	struct addrinfo* resultado;
@@ -21,7 +23,10 @@ public:
 	Socket(const Socket& otro) = delete;
 	Socket& operator=(const Socket& otro) = delete;
 	void conectar();
-	int enviar(char* buffer, int cant_bytes);
+	void enlazar();
+	void conectarConCliente();
+	int enviar(const char buffer[TAM_BUFFER], int cant_bytes);
+	int recibir(char* buffer, int cant_bytes);
 	~Socket() noexcept;
 };
 
