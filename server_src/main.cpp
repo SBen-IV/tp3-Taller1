@@ -14,24 +14,21 @@ int main(int argc, char const *argv[]) {
 	}
 
 	try {
-		std::vector<std::thread> threads;
-
-		for (size_t i; i < 1; ++i) {
-			threads.push_back(std::thread {GestorDeClientes(argv[1],
-															argv[2])});
-		}
+		GestorDeClientes gestor(argv[1], argv[2]);
+	//	std::thread main_thread(&GestorDeClientes::operator(), gestor);
+		gestor();
 
 		char c = ESPACIO;
 
 		while (c != CARACTER_CORTE) {
-			std::cin.get(c);
+			std::cin >> c;
 		}
 
+		
 	//	this->gestor();
 	//	gestor.finalizar(); // close(socket)
-		for (size_t i; i < 1; ++i) {
-			threads[i].join();
-		}
+	//	main_thread.join();
+
 		return 0;
 
 	} catch(const std::exception& e) {

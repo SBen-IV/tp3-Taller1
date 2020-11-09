@@ -6,6 +6,7 @@
 #define SOCKET_CERRADO 0
 #define PEER_ERROR -1
 #define FD_ERROR -1
+#define MAX_CLIENTES 5
 
 Socket::Socket(const char* ip, const char* puerto, int flag) :
 				file_descriptor(FD_ERROR), peer(PEER_ERROR) {
@@ -79,28 +80,30 @@ void Socket::enlazar() {
 											" servidor.");
 }
 
-void Socket::conectarConCliente() {
-	if (listen(this->file_descriptor, 1) == SUCCESS) {
-		this->peer = accept(this->file_descriptor, NULL, NULL);
 
-		if (this->peer == PEER_ERROR) {
-			throw ErrorConectar("No se pudo conectar con el cliente.");
-		}
-	}
+int Socket::hayClientes() {
+	return listen(this->file_descriptor, MAX_CLIENTES);
+}
+
+Peer Socket::aceptarCliente() {
+	Peer peer(accept(this->file_descriptor, NULL, NULL));
+	
+	return peer;
 }
 
 int Socket::enviar(const char* buffer, int cant_bytes) {
 	int total_bytes_enviados = 0;
+	bool esta_abierto = true;
 
-	while (total_bytes_enviados < cant_bytes) {
+	while (total_bytes_enviados < cant_bytes && esta_abierto) {
 		int bytes_enviados = send(this->peer,
 								&buffer[total_bytes_enviados],
 								cant_bytes - total_bytes_enviados,
 								MSG_NOSIGNAL);
 		if (bytes_enviados == ERROR) {
-			throw ErrorSocket();
+			esta_abierto = false;
 		} else if (bytes_enviados == SOCKET_CERRADO) {
-			throw ErrorSocket();
+			esta_abierto = false;
 		} else {
 			total_bytes_enviados += bytes_enviados;
 		}
@@ -111,16 +114,17 @@ int Socket::enviar(const char* buffer, int cant_bytes) {
 
 int Socket::recibir(char* buffer, int cant_bytes) {
 	int total_bytes_recibidos = 0;
+	bool esta_abierto = true;
 
-	while (total_bytes_recibidos < cant_bytes) {
+	while (total_bytes_recibidos < cant_bytes && esta_abierto) {
 		int bytes_enviados = recv(this->peer,
 								&buffer[total_bytes_recibidos],
 								cant_bytes - total_bytes_recibidos,
 								MSG_NOSIGNAL);
 		if (bytes_enviados == ERROR) {
-			throw ErrorSocket();
+			esta_abierto = false;
 		} else if (bytes_enviados == SOCKET_CERRADO) {
-			throw ErrorSocket();
+			esta_abierto = false;
 		} else {
 			total_bytes_recibidos += bytes_enviados;
 		}

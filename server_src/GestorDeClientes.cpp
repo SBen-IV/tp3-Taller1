@@ -1,29 +1,45 @@
 #include "GestorDeClientes.h"
+#include "ThCliente.h"
+#include <vector>
+#include <iostream>
 
 #define VACIO ""
+#define SUCCESS 0
 
 GestorDeClientes::GestorDeClientes(const char* puerto,
 									const char* _archivo_raiz) :
 									socket(NULL, puerto, AI_PASSIVE),
-									archivo_raiz(_archivo_raiz) {
+									recursos(_archivo_raiz) {
 	this->socket.enlazar();
 }
 
+void limpiar_clientes(std::vector<Thread*>& clientes) {
+	std::cout << "Limpiando clientes" << std::endl;
+}
+
 void GestorDeClientes::operator()() {
-	this->socket.conectarConCliente();
+	std::vector<Thread*> clientes;
 
-	char buffer[TAM_BUFFER] = VACIO;
-	int bytes_recibidos = 0;
-//	Buffer todo lo recibido
-	std::string recibido;
+	if (this->socket.hayClientes() == SUCCESS) {
+		Peer peer = this->socket.aceptarCliente();
+			
+		clientes.push_back(new ThCliente(peer));
+		clientes.back()->start();
+		limpiar_clientes(clientes);
+		clientes[0]->join();
+		delete clientes[0];
+	}
 
-	do {
-		//TODO:
-		bytes_recibidos = this->socket.recibir(buffer, TAM_BUFFER);
-		recibido += buffer;
-	} while (bytes_recibidos > 0);
+/*
+	while (this->socket.hayClientes() == SUCCESS) {
+		Peer peer = this->socket.aceptarCliente();
+		
+		clientes.push_back(new ThCliente(peer));
 
-	this->socket.enviar(recibido.c_str(), 10);
+		limpiar_clientes(clientes);
+
+		//Si el socket se cerro hay que terminar
+	}*/
 }
 
 

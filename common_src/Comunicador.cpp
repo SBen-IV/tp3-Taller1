@@ -24,7 +24,7 @@ void Comunicador::iniciarCliente() {
 		enviados = this->socket.enviar(buffer, leidos);
 	} while (enviados > 0);
 
-
+/*
 	std::string recibido;
 	int bytes_recibidos = 0;
 
@@ -37,7 +37,7 @@ void Comunicador::iniciarCliente() {
 		recibido += buffer;
 	} while (bytes_recibidos > 0);
 
-	std::cout << recibido << std::endl;
+	std::cout << recibido << std::endl;*/
 }
 
 Comunicador::~Comunicador() {}

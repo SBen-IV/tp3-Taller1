@@ -10,6 +10,7 @@
 
 #include "ErrorConectar.h"
 #include "ErrorSocket.h"
+#include "Peer.h"
 
 #define TAM_BUFFER 3
 
@@ -24,7 +25,8 @@ public:
 	Socket& operator=(const Socket& otro) = delete;
 	void conectar();
 	void enlazar();
-	void conectarConCliente();
+	int hayClientes();
+	Peer aceptarCliente();
 	int enviar(const char buffer[TAM_BUFFER], int cant_bytes);
 	int recibir(char* buffer, int cant_bytes);
 	~Socket() noexcept;
