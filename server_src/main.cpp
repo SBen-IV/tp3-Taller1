@@ -10,7 +10,7 @@
 int main(int argc, char const *argv[]) {
 	if (argc < 3) {
 		std::cout << "./server <puerto/servicio> <root_file>" << std::endl;
-		return 0;
+		return 1;
 	}
 
 	try {

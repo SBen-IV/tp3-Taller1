@@ -1,14 +1,16 @@
 #include "ThCliente.h"
+//#include "../common_src/TipoMetodo.h"
 #include <iostream>
 #include <string>
 
 #define VACIO ""
 #define TAM_BUFFER 5
 
-ThCliente::ThCliente(Peer& _peer) : mantener_conexion(true),
+ThCliente::ThCliente(Peer& _peer, Recursos& _recursos) :
+										mantener_conexion(true),
 										esta_conectado(true),
-										peer(std::move(_peer)) {
-}
+										recursos(_recursos),
+										peer(std::move(_peer)) {}
 
 void ThCliente::run() {
 	char buffer[TAM_BUFFER] = VACIO;
@@ -20,8 +22,6 @@ void ThCliente::run() {
 		mensaje_completo.append(buffer, leidos);
 	} while (leidos > 0);
 
-	mensaje_completo.push_back('\0');
-
 	Parser parser(mensaje_completo);
 
 	std::string metodo = parser.obtenerPalabra();
@@ -32,7 +32,11 @@ void ThCliente::run() {
 
 	std::string contenido = parser.obtenerContenido();
 
-	std::cout << contenido << std::endl;
+	std::string respuesta = this->recursos.obtenerRespuesta(metodo,
+															recurso,
+															contenido);
+
+	std::cout << respuesta << std::endl;
 /*
 	recibir
 	parsear

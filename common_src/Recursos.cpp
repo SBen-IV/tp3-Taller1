@@ -1,5 +1,10 @@
 #include "Recursos.h"
 #include "Archivo.h"
+#include "GetRaiz.h"
+#include "Get.h"
+#include "PostRaiz.h"
+#include "Post.h"
+#include "Otro.h"
 
 #define ARCHIVO_RAIZ "/"
 #define GET "GET"
@@ -11,52 +16,39 @@ Recursos::Recursos(const char* _archivo_raiz) {
 
 	while (!archivo.esEOF()) {
 		archivo.leer(linea);
-		contenido.append(linea);
+		contenido += linea;
 	}
 
-	this->recursos[ARCHIVO_RAIZ] = contenido;
+	this->recursos[ARCHIVO_RAIZ] = std::move(contenido);
 }
-/*
-TipoMetodo Recursos::obtenerTipoMetodo(const std::string& metodo,
-										const std::string& recurso) {
+
+std::string Recursos::obtenerRespuesta(const std::string& metodo,
+										const std::string& recurso,
+										const std::string& contenido) {
+	std::string respuesta;
+	TipoMetodo* tipo_metodo;
+	Otro otro;
+	tipo_metodo = &otro;
+
 	if (metodo == GET) {
 		if (recurso == ARCHIVO_RAIZ){
-			return GetRaiz();
+			GetRaiz get_raiz;
+			tipo_metodo = &get_raiz;
 		} else {
-			return Get();
+			Get get;
+			tipo_metodo = &get;
 		}
 	} else if (metodo == POST) {
 		if (recurso == ARCHIVO_RAIZ) {
-			return PostRaiz();
+			PostRaiz post_raiz;
+			tipo_metodo = &post_raiz;
 		} else {
-			return Post();
+			Post post;
+			tipo_metodo = &post;
 		}
 	}
 
-	return Otro();
-}
-*/
-/*
-std::string Recursos::obtenerRespuesta(TipoMetodo metodo,
-										const std::string& recurso) {
-	std::string respuesta;
-
-	respuesta = metodo.obtener(recurso);
-
-	return respuesta;
-}
-*/
-std::string Recursos::obtenerRespuesta(const std::string& metodo,
-										const std::string& recurso) {
-	std::string respuesta;
-
-	if (metodo == GET) {
-//		respuesta = this->recursos[recurso]
-	} else if (metodo == POST) {
-
-	} else {
-
-	}
+	respuesta = tipo_metodo->obtener(this->recursos, recurso, contenido);
 
 	return respuesta;
 }

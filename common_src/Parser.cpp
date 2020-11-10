@@ -14,7 +14,7 @@ std::string Parser::obtenerContenido() {
 	std::getline(this->mensaje, aux, '\n');
 	do {
 		std::getline(this->mensaje, aux, '\n');
-	} while (aux != "");
+	} while (aux != "" && !this->mensaje.eof()); // Cambiar condicion
 
 	std::getline(this->mensaje, contenido, '\0');
 

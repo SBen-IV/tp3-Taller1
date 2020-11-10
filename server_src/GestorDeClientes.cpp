@@ -23,7 +23,7 @@ void GestorDeClientes::operator()() {
 	if (this->socket.hayClientes() == SUCCESS) {
 		Peer peer = this->socket.aceptarCliente();
 			
-		clientes.push_back(new ThCliente(peer));
+		clientes.push_back(new ThCliente(peer, recursos));
 		clientes.back()->start();
 		limpiar_clientes(clientes);
 		clientes[0]->join();
