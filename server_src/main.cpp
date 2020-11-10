@@ -15,8 +15,8 @@ int main(int argc, char const *argv[]) {
 
 	try {
 		GestorDeClientes gestor(argv[1], argv[2]);
-	//	std::thread main_thread(&GestorDeClientes::operator(), gestor);
-		gestor();
+//		std::thread main_thread(&GestorDeClientes::operator(), &gestor);
+		gestor.start();
 
 		char c = ESPACIO;
 
@@ -24,10 +24,8 @@ int main(int argc, char const *argv[]) {
 			std::cin >> c;
 		}
 
-		
-	//	this->gestor();
-	//	gestor.finalizar(); // close(socket)
-	//	main_thread.join();
+//		gestor.finalizar(); // close(socket)
+		gestor.join();
 
 		return 0;
 

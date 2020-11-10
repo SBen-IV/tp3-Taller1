@@ -22,7 +22,7 @@ Socket::Socket(const char* ip, const char* puerto, int flag) :
 
 	if (estado != SUCCESS) {
 		freeaddrinfo(this->resultado);
-		throw -1; //TODO: Cambiar excepcion.
+		throw ErrorSocket("No se pudo inicializar el socket.");
 	}
 }
 
@@ -31,16 +31,17 @@ void Socket::conectar() {
 	struct addrinfo* resultado_aux = this->resultado;
 
 	while (resultado_aux && !esta_conectado) {
-		this->peer = socket(resultado_aux->ai_family,
+		int _peer = socket(resultado_aux->ai_family,
 										resultado_aux->ai_socktype,
 										resultado_aux->ai_protocol);
 
-		if (this->peer != PEER_ERROR) {
-			if (connect(this->peer, resultado_aux->ai_addr,
+		if (_peer != PEER_ERROR) {
+			if (connect(_peer, resultado_aux->ai_addr,
 						resultado_aux->ai_addrlen) == SUCCESS) {
+				this->peer = _peer;
 				esta_conectado = true;
 			} else {
-				close(this->peer);
+				close(_peer);
 			}
 		}
 
@@ -92,53 +93,18 @@ Peer Socket::aceptarCliente() {
 }
 
 int Socket::enviar(const char* buffer, int cant_bytes) {
-	int total_bytes_enviados = 0;
-	bool esta_abierto = true;
-
-	while (total_bytes_enviados < cant_bytes && esta_abierto) {
-		int bytes_enviados = send(this->peer,
-								&buffer[total_bytes_enviados],
-								cant_bytes - total_bytes_enviados,
-								MSG_NOSIGNAL);
-		if (bytes_enviados == ERROR) {
-			esta_abierto = false;
-		} else if (bytes_enviados == SOCKET_CERRADO) {
-			esta_abierto = false;
-		} else {
-			total_bytes_enviados += bytes_enviados;
-		}
-	}
-
-	return total_bytes_enviados;
+	return this->peer.enviar(buffer, cant_bytes);
 }
 
 int Socket::recibir(char* buffer, int cant_bytes) {
-	int total_bytes_recibidos = 0;
-	bool esta_abierto = true;
+	return this->peer.recibir(buffer, cant_bytes);
+}
 
-	while (total_bytes_recibidos < cant_bytes && esta_abierto) {
-		int bytes_enviados = recv(this->peer,
-								&buffer[total_bytes_recibidos],
-								cant_bytes - total_bytes_recibidos,
-								MSG_NOSIGNAL);
-		if (bytes_enviados == ERROR) {
-			esta_abierto = false;
-		} else if (bytes_enviados == SOCKET_CERRADO) {
-			esta_abierto = false;
-		} else {
-			total_bytes_recibidos += bytes_enviados;
-		}
-	}
-
-	return total_bytes_recibidos;
+void Socket::pararEnvio() {
+	this->peer.pararEnvio();
 }
 
 Socket::~Socket() noexcept {
-	if (this->peer != PEER_ERROR) {
-		shutdown(this->peer, SHUT_RDWR);
-		close(this->peer);	
-	}
-
 	if (this->file_descriptor != FD_ERROR) {
 		shutdown(this->file_descriptor, SHUT_RDWR);
 		close(this->file_descriptor);

@@ -13,11 +13,11 @@ GestorDeClientes::GestorDeClientes(const char* puerto,
 	this->socket.enlazar();
 }
 
-void limpiar_clientes(std::vector<Thread*>& clientes) {
+void static limpiar_clientes(std::vector<Thread*>& clientes) {
 	std::cout << "Limpiando clientes" << std::endl;
 }
 
-void GestorDeClientes::operator()() {
+void GestorDeClientes::run() {
 	std::vector<Thread*> clientes;
 
 	if (this->socket.hayClientes() == SUCCESS) {
@@ -42,6 +42,6 @@ void GestorDeClientes::operator()() {
 	}*/
 }
 
-
+void GestorDeClientes::stop() {}
 
 GestorDeClientes::~GestorDeClientes() {}

@@ -18,7 +18,7 @@ class Socket {
 private:
 	struct addrinfo* resultado;
 	int file_descriptor;
-	int peer;
+	Peer peer;
 public:
 	Socket(const char* ip, const char* puerto, int flag);
 	Socket(const Socket& otro) = delete;
@@ -29,6 +29,7 @@ public:
 	Peer aceptarCliente();
 	int enviar(const char buffer[TAM_BUFFER], int cant_bytes);
 	int recibir(char* buffer, int cant_bytes);
+	void pararEnvio();
 	~Socket() noexcept;
 };
 

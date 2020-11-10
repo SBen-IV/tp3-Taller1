@@ -1,5 +1,4 @@
 #include "ThCliente.h"
-//#include "../common_src/TipoMetodo.h"
 #include <iostream>
 #include <string>
 
@@ -36,12 +35,11 @@ void ThCliente::run() {
 															recurso,
 															contenido);
 
-	std::cout << respuesta << std::endl;
-/*
-	recibir
-	parsear
-	enviar
-*/
+	int largo_respuesta = respuesta.length();
+
+	this->peer.enviar(respuesta.c_str(), largo_respuesta);
+
+	this->peer.parar();
 }
 
 void ThCliente::stop() {

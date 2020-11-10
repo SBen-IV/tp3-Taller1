@@ -14,30 +14,34 @@ void Comunicador::conectar() {
 
 void Comunicador::iniciarCliente() {
 	char buffer[TAM_BUFFER] = VACIO;
-	int enviados = 0;
+	int leidos = 0;
+	std::string mensaje;
 
 	do {
-		int leidos = fread(buffer, 1, TAM_BUFFER, stdin);
-	/*	TODO:
+		/*	TODO:
 		std::cin.getline(buffer, TAM_BUFFER);
 		leidos = std::cin.gcount();*/
-		enviados = this->socket.enviar(buffer, leidos);
-	} while (enviados > 0);
+		leidos = fread(buffer, 1, TAM_BUFFER, stdin);
+		mensaje.append(buffer, leidos);
+	} while (leidos > 0);
 
-/*
+	this->socket.enviar(mensaje.c_str(), mensaje.length());
+
+	this->socket.pararEnvio();
+
 	std::string recibido;
 	int bytes_recibidos = 0;
 
 	do {
 		try {
 			bytes_recibidos = this->socket.recibir(buffer, TAM_BUFFER);
+			recibido.append(buffer, bytes_recibidos);
 		} catch (const ErrorSocket& e) {
 			bytes_recibidos = -1;
 		}
-		recibido += buffer;
 	} while (bytes_recibidos > 0);
 
-	std::cout << recibido << std::endl;*/
+	std::cout << recibido << std::endl;
 }
 
 Comunicador::~Comunicador() {}

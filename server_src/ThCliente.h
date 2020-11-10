@@ -15,8 +15,8 @@ private:
 	Peer peer;
 public:
 	ThCliente(Peer& _peer, Recursos& _recursos);
-	virtual void run() override;
-	virtual void stop() override;
+	void run() override;
+	void stop() override;
 	~ThCliente();
 };
 
