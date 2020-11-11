@@ -1,5 +1,6 @@
 #include "Get.h"
 #include <stdexcept>
+#include <string>
 
 const char MENSAJE_OK[] = "HTTP/1.1 200 OK\n\n";
 const char MENSAJE_ERROR[] = "HTTP/1.1 404 NOT FOUND\n\n";

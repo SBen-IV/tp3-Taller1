@@ -1,4 +1,5 @@
 #include "GetRaiz.h"
+#include <string>
 
 const char RESPUESTA_DEFAULT[] = "HTTP/1.1 200 OK\n"
 								"Content-Type: text/html\n\n";

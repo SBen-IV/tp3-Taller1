@@ -12,7 +12,7 @@ private:
 	char msj_error[MAX_MSJ_ERROR];
 public:
 	ErrorSocket() noexcept;
-	ErrorSocket(const char* mensaje) noexcept;
+	explicit ErrorSocket(const char* mensaje) noexcept;
 	virtual const char* what() const noexcept;
 	virtual ~ErrorSocket();
 };

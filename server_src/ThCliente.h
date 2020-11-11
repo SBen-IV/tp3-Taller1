@@ -9,7 +9,6 @@
 
 class ThCliente : public Thread {
 private:
-	std::atomic<bool> mantener_conexion;
 	std::atomic<bool> esta_conectado;
 	Recursos& recursos;
 	Peer peer;

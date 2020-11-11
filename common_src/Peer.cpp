@@ -62,9 +62,15 @@ Peer& Peer::operator=(Peer&& otro) {
 	return *this;
 }
 
+Peer& Peer::operator=(int otro) {
+	this->peer = otro;
+
+	return *this;
+}
+
+
 void Peer::pararEnvio() {
 	if (this->peer != PEER_CERRADO) shutdown(this->peer, SHUT_WR);
-
 }
 
 void Peer::parar() {

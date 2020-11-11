@@ -11,11 +11,12 @@ class Peer {
 private:
 	int peer;
 public:
-	Peer(const int _peer);
+	explicit Peer(const int _peer);
 	Peer(const Peer& otro) = delete;
 	Peer& operator=(const Peer& otro) = delete;
 	Peer(Peer&& otro);
 	Peer& operator=(Peer&& otro);
+	Peer& operator=(int otro);
 	int enviar(const char* buffer, int cant_bytes);
 	int recibir(char* buffer, int cant_bytes);
 	void pararEnvio();

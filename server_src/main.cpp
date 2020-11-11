@@ -27,11 +27,9 @@ int main(int argc, char const *argv[]) {
 		main_thread.join();
 
 		return 0;
-
 	} catch(const std::exception& e) {
 		printf("%s\n", e.what());
 		return 0;
-
 	} catch(...) {
 		printf("Error.\n");
 		return 0;

@@ -10,7 +10,7 @@ class ErrorConectar : public std::exception {
 private:
 	char msj_error[MAX_MSJ_ERROR];
 public:
-	ErrorConectar(const char* mensaje) noexcept;
+	explicit ErrorConectar(const char* mensaje) noexcept;
 	virtual const char* what() const noexcept;
 	virtual ~ErrorConectar();
 };

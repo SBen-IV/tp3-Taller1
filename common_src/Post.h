@@ -2,6 +2,7 @@
 #define POST_H
 
 #include "TipoMetodo.h"
+#include <string>
 
 class Post : public TipoMetodo {
 public:

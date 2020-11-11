@@ -17,5 +17,6 @@ server
 #Extras
 *.zip
 *.txt
+*.sh
 filter_options
 vgcore.*

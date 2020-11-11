@@ -1,4 +1,5 @@
 #include "Otro.h"
+#include <string>
 
 const char MENSAJE_DEFAULT[] = "HTTP/1.1 405 METHOD NOT ALLOWED\n\n";
 

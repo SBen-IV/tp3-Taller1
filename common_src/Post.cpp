@@ -1,5 +1,7 @@
 #include "Post.h"
 
+#include <string>
+
 const char MENSAJE_DEFAULT[] = "HTTP/1.1 200 OK\n\n";
 
 Post::Post() {}

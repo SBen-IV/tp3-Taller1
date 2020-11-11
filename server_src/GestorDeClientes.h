@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <atomic>
 
 #include "ThCliente.h"
 #include "../common_src/Socket.h"
@@ -12,7 +13,7 @@ class GestorDeClientes {
 private:
 	Socket socket;
 	Recursos recursos;
-	bool esta_conectado;
+	std::atomic<bool> esta_conectado;
 public:
 	GestorDeClientes(const char* puerto, const char* _archivo_raiz);
 	void operator()();

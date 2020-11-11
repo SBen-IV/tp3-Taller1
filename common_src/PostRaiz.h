@@ -3,6 +3,8 @@
 
 #include "TipoMetodo.h"
 
+#include <string>
+
 class PostRaiz : public TipoMetodo {
 public:
 	PostRaiz();

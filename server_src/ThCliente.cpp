@@ -1,12 +1,12 @@
 #include "ThCliente.h"
 #include <iostream>
 #include <string>
+#include <utility>
 
 #define VACIO ""
 #define TAM_BUFFER 5
 
 ThCliente::ThCliente(Peer& _peer, Recursos& _recursos) :
-										mantener_conexion(true),
 										esta_conectado(true),
 										recursos(_recursos),
 										peer(std::move(_peer)) {}
@@ -45,7 +45,6 @@ void ThCliente::run() {
 }
 
 void ThCliente::stop() {
-	this->mantener_conexion = false;
 	this->peer.parar();
 	this->peer.cerrar();
 }

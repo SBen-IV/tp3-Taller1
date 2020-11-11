@@ -8,7 +8,7 @@ class Parser {
 private:
 	std::stringstream mensaje;
 public:
-	Parser(const std::string& _mensaje);
+	explicit Parser(const std::string& _mensaje);
 	std::string obtenerPalabra();
 	std::string obtenerContenido();
 	~Parser();

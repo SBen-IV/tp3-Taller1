@@ -2,6 +2,7 @@
 #define OTRO_H
 
 #include "TipoMetodo.h"
+#include <string>
 
 class Otro : public TipoMetodo {
 public:
