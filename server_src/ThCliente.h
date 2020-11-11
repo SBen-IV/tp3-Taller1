@@ -17,6 +17,7 @@ public:
 	ThCliente(Peer& _peer, Recursos& _recursos);
 	void run() override;
 	void stop() override;
+	bool termino() override;
 	~ThCliente();
 };
 

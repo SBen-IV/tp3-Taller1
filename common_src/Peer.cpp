@@ -4,6 +4,7 @@
 #define ERROR -1
 
 #define SOCKET_CERRADO 0
+#define PEER_CERRADO -1
 
 Peer::Peer(const int _peer) : peer(_peer) {}
 
@@ -51,24 +52,33 @@ int Peer::recibir(char* buffer, int cant_bytes) {
 
 Peer::Peer(Peer&& otro) {
 	this->peer = std::move(otro.peer);
+	otro.peer = PEER_CERRADO;
 }
 
 Peer& Peer::operator=(Peer&& otro) {
 	this->peer = std::move(otro.peer);
+	otro.peer = PEER_CERRADO;
 
 	return *this;
 }
 
 void Peer::pararEnvio() {
-	if (this->peer != -1) shutdown(this->peer, SHUT_WR);
+	if (this->peer != PEER_CERRADO) shutdown(this->peer, SHUT_WR);
+
 }
 
 void Peer::parar() {
-	if (this->peer != -1) shutdown(this->peer, SHUT_RDWR);
+	if (this->peer != PEER_CERRADO) shutdown(this->peer, SHUT_RDWR);
 }
 
 void Peer::cerrar() {
-	if (this->peer != -1) close(this->peer);
+	if (this->peer != PEER_CERRADO){
+		close(this->peer);
+		this->peer = PEER_CERRADO;
+	}
 }
 
-Peer::~Peer() {}
+Peer::~Peer() {
+	this->parar();
+	this->cerrar();
+}

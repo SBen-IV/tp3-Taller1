@@ -40,12 +40,18 @@ void ThCliente::run() {
 	this->peer.enviar(respuesta.c_str(), largo_respuesta);
 
 	this->peer.parar();
+
+	this->esta_conectado = false;
 }
 
 void ThCliente::stop() {
 	this->mantener_conexion = false;
 	this->peer.parar();
 	this->peer.cerrar();
+}
+
+bool ThCliente::termino() {
+	return !(this->esta_conectado);
 }
 
 ThCliente::~ThCliente() {}

@@ -9,39 +9,54 @@
 GestorDeClientes::GestorDeClientes(const char* puerto,
 									const char* _archivo_raiz) :
 									socket(NULL, puerto, AI_PASSIVE),
-									recursos(_archivo_raiz) {
+									recursos(_archivo_raiz),
+									esta_conectado(true) {
 	this->socket.enlazar();
 }
 
-void static limpiar_clientes(std::vector<Thread*>& clientes) {
-	std::cout << "Limpiando clientes" << std::endl;
+void GestorDeClientes::terminarClientes(std::vector<ThCliente*>& clientes) {
+	for (auto cliente : clientes) {
+		cliente->stop();
+		cliente->join();
+		delete cliente;
+	}
 }
 
-void GestorDeClientes::run() {
-	std::vector<Thread*> clientes;
+void GestorDeClientes::limpiarClientes(std::vector<ThCliente*>& clientes) {
+	std::size_t largo_clientes = clientes.size();
+	std::vector<ThCliente*> clientes_aux;
 
-	if (this->socket.hayClientes() == SUCCESS) {
-		Peer peer = this->socket.aceptarCliente();
-			
-		clientes.push_back(new ThCliente(peer, recursos));
-		clientes.back()->start();
-		limpiar_clientes(clientes);
-		clientes[0]->join();
-		delete clientes[0];
+	for(size_t i = 0; i < largo_clientes; ++i) {
+		if (clientes[i]->termino()) {
+			clientes[i]->join();
+			delete clientes[i];
+		} else {
+			clientes_aux.push_back(clientes[i]);
+		}
 	}
 
-/*
-	while (this->socket.hayClientes() == SUCCESS) {
-		Peer peer = this->socket.aceptarCliente();
-		
-		clientes.push_back(new ThCliente(peer));
-
-		limpiar_clientes(clientes);
-
-		//Si el socket se cerro hay que terminar
-	}*/
+	clientes.swap(clientes_aux);
 }
 
-void GestorDeClientes::stop() {}
+void GestorDeClientes::operator()() {
+	std::vector<ThCliente*> clientes;
+
+	while (this->esta_conectado) {
+		if (this->socket.hayClientes() == SUCCESS){
+			Peer peer = this->socket.aceptarCliente();
+
+			clientes.push_back(new ThCliente(peer, recursos));
+			clientes.back()->start();
+			GestorDeClientes::limpiarClientes(clientes);
+		}
+	}
+
+	GestorDeClientes::terminarClientes(clientes);
+}
+
+void GestorDeClientes::finalizar() {
+	this->esta_conectado = false;
+	this->socket.parar();
+}
 
 GestorDeClientes::~GestorDeClientes() {}

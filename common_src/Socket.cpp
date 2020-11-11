@@ -6,7 +6,7 @@
 #define SOCKET_CERRADO 0
 #define PEER_ERROR -1
 #define FD_ERROR -1
-#define MAX_CLIENTES 5
+#define MAX_CLIENTES 10
 
 Socket::Socket(const char* ip, const char* puerto, int flag) :
 				file_descriptor(FD_ERROR), peer(PEER_ERROR) {
@@ -102,6 +102,12 @@ int Socket::recibir(char* buffer, int cant_bytes) {
 
 void Socket::pararEnvio() {
 	this->peer.pararEnvio();
+}
+
+void Socket::parar() {
+	if (this->file_descriptor != FD_ERROR) {
+		shutdown(this->file_descriptor, SHUT_RDWR);
+	}
 }
 
 Socket::~Socket() noexcept {
