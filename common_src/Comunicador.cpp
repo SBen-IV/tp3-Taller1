@@ -42,7 +42,7 @@ void Comunicador::iniciarCliente() {
 		}
 	} while (bytes_recibidos > 0);
 
-	std::cout << recibido << std::endl;
+	std::cout << recibido;
 }
 
 Comunicador::~Comunicador() {}

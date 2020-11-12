@@ -11,6 +11,7 @@ Archivo::Archivo(const char* nombre_archivo) {
 
 void Archivo::leer(std::string& linea) {
 	std::getline(this->archivo, linea);
+	linea.push_back('\n');
 }
 
 bool Archivo::esEOF() {

@@ -20,7 +20,7 @@ public:
 	void finalizar();
 	~GestorDeClientes();
 private:
-	void terminarClientes(std::vector<ThCliente*>& clientes);
+	void terminarClientes(const std::vector<ThCliente*>& clientes);
 	void limpiarClientes(std::vector<ThCliente*>& clientes);
 };
 

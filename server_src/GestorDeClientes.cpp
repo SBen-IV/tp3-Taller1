@@ -14,7 +14,8 @@ GestorDeClientes::GestorDeClientes(const char* puerto,
 	this->socket.enlazar();
 }
 
-void GestorDeClientes::terminarClientes(std::vector<ThCliente*>& clientes) {
+void GestorDeClientes::terminarClientes(const std::vector<ThCliente*>&
+										clientes) {
 	for (auto cliente : clientes) {
 		cliente->stop();
 		cliente->join();

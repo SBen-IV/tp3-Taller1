@@ -7,7 +7,8 @@ const char MENSAJE_ERROR[] = "HTTP/1.1 404 NOT FOUND\n\n";
 
 Get::Get() {}
 
-std::string Get::obtener(Hash& recursos, const std::string& recurso,
+std::string Get::obtener(Hash& recursos, const std::string& metodo,
+						const std::string& recurso,
 						const std::string& contenido) {
 	std::string respuesta = MENSAJE_OK;
 	try {

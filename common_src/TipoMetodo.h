@@ -10,6 +10,7 @@ class TipoMetodo {
 public:
 	TipoMetodo();
 	virtual std::string obtener(Hash& recursos,
+								const std::string& metodo,
 								const std::string& recurso,
 								const std::string& contenido) = 0;
 	virtual ~TipoMetodo();

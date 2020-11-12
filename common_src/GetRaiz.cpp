@@ -6,7 +6,8 @@ const char RESPUESTA_DEFAULT[] = "HTTP/1.1 200 OK\n"
 
 GetRaiz::GetRaiz() {}
 
-std::string GetRaiz::obtener(Hash& recursos, const std::string& recurso,
+std::string GetRaiz::obtener(Hash& recursos, const std::string& metodo,
+							const std::string& recurso,
 							const std::string& contenido) {
 	std::string respuesta = RESPUESTA_DEFAULT;
 
