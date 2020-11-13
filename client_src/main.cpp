@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "../common_src/Comunicador.h"
+#include "Comunicador.h"
 
 int main(int argc, char const *argv[]) {
 	if (argc < 3) {
