@@ -8,7 +8,7 @@
 
 class Recursos {
 private:
-	std::map<std::string, std::string> recursos;
+	Hash recursos;
 public:
 	explicit Recursos(const char* _archivo_raiz);
 	std::string obtenerRespuesta(const std::string& metodo,
