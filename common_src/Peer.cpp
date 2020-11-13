@@ -1,4 +1,6 @@
 #include "Peer.h"
+#include "ErrorSocket.h"
+
 #include <utility>
 
 #define ERROR -1
@@ -6,7 +8,11 @@
 #define SOCKET_CERRADO 0
 #define PEER_CERRADO -1
 
-Peer::Peer(const int _peer) : peer(_peer) {}
+Peer::Peer(const int _peer) {
+	if (_peer == PEER_CERRADO) throw ErrorSocket("No se pudo conectar"
+													" el peer");
+	this->peer = _peer;
+}
 
 int Peer::enviar(const char* buffer, int cant_bytes) {
 	int total_bytes_enviados = 0;
@@ -67,7 +73,6 @@ Peer& Peer::operator=(int otro) {
 
 	return *this;
 }
-
 
 void Peer::pararEnvio() {
 	if (this->peer != PEER_CERRADO) shutdown(this->peer, SHUT_WR);

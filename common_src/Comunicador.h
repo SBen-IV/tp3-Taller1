@@ -2,6 +2,7 @@
 #define COMUNICADOR_H
 
 #include <cstring>
+#include <string>
 
 #include "Socket.h"
 
@@ -10,9 +11,11 @@ private:
 	Socket socket;
 public:
 	Comunicador(const char* ip, const char* puerto);
-	void conectar();
-	void iniciarCliente();
+	void operator()();
 	~Comunicador();
+private:
+	void leerEntradaEstandar(std::string& mensaje);
+	void recibirRespuesta(std::string& respuesta, Peer& peer);
 };
 
 #endif

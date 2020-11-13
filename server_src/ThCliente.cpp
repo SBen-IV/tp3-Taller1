@@ -11,17 +11,22 @@ ThCliente::ThCliente(Peer& _peer, Recursos& _recursos) :
 										recursos(_recursos),
 										peer(std::move(_peer)) {}
 
-void ThCliente::run() {
+void ThCliente::obtenerPetitorio(std::string& petitorio) {
 	char buffer[TAM_BUFFER] = VACIO;
-	std::string mensaje_completo;
 	int leidos = 0;
 
 	do {
 		leidos = this->peer.recibir(buffer, TAM_BUFFER);
-		mensaje_completo.append(buffer, leidos);
+		petitorio.append(buffer, leidos);
 	} while (leidos > 0);
+}
 
-	Parser parser(mensaje_completo);
+void ThCliente::run() {
+	std::string petitorio;
+
+	ThCliente::obtenerPetitorio(petitorio);
+
+	Parser parser(petitorio);
 
 	std::string metodo = parser.obtenerPalabra();
 	std::string recurso = parser.obtenerPalabra();

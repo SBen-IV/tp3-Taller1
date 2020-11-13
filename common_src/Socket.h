@@ -12,24 +12,22 @@
 #include "ErrorSocket.h"
 #include "Peer.h"
 
-#define TAM_BUFFER 3
+#define TAM_BUFFER 64
 
 class Socket {
 private:
 	struct addrinfo* resultado;
 	int file_descriptor;
-	Peer peer;
 public:
 	Socket(const char* ip, const char* puerto, int flag);
 	Socket(const Socket& otro) = delete;
 	Socket& operator=(const Socket& otro) = delete;
-	void conectar();
+	Peer conectar();
 	void enlazar();
-	int hayClientes();
+	void escuchar();
 	Peer aceptarCliente();
 	int enviar(const char buffer[TAM_BUFFER], int cant_bytes);
 	int recibir(char* buffer, int cant_bytes);
-	void pararEnvio();
 	void parar();
 	~Socket() noexcept;
 };

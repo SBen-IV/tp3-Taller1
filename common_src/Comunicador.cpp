@@ -9,40 +9,41 @@
 Comunicador::Comunicador(const char* ip, const char* puerto) : 
 							socket(ip, puerto, 0) {}
 
-void Comunicador::conectar() {
-	this->socket.conectar();
-}
-
-void Comunicador::iniciarCliente() {
+void Comunicador::leerEntradaEstandar(std::string& mensaje) {
 	char buffer[TAM_BUFFER] = VACIO;
 	int leidos = 0;
-	std::string mensaje;
 
 	do {
-		/*	TODO:
-		std::cin.getline(buffer, TAM_BUFFER);
-		leidos = std::cin.gcount();*/
 		leidos = fread(buffer, 1, TAM_BUFFER, stdin);
 		mensaje.append(buffer, leidos);
 	} while (leidos > 0);
+}
 
-	this->socket.enviar(mensaje.c_str(), mensaje.length());
-
-	this->socket.pararEnvio();
-
-	std::string recibido;
+void Comunicador::recibirRespuesta(std::string& respuesta, Peer& peer) {
+	char buffer[TAM_BUFFER] = VACIO;
 	int bytes_recibidos = 0;
 
 	do {
-		try {
-			bytes_recibidos = this->socket.recibir(buffer, TAM_BUFFER);
-			recibido.append(buffer, bytes_recibidos);
-		} catch (const ErrorSocket& e) {
-			bytes_recibidos = -1;
-		}
-	} while (bytes_recibidos > 0);
+		bytes_recibidos = peer.recibir(buffer, TAM_BUFFER);
+		respuesta.append(buffer, bytes_recibidos);
+	} while (bytes_recibidos == TAM_BUFFER);
+}
 
-	std::cout << recibido;
+void Comunicador::operator()() {
+	Peer peer(this->socket.conectar());
+	std::string mensaje;
+
+	Comunicador::leerEntradaEstandar(mensaje);
+
+	peer.enviar(mensaje.c_str(), mensaje.length());
+
+	peer.pararEnvio();
+
+	std::string respuesta;
+
+	Comunicador::recibirRespuesta(respuesta, peer);
+
+	std::cout << respuesta;
 }
 
 Comunicador::~Comunicador() {}

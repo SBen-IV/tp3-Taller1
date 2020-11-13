@@ -11,9 +11,7 @@ int main(int argc, char const *argv[]) {
 	try {
 		Comunicador comunicador(argv[1], argv[2]);
 
-		comunicador.conectar();
-
-		comunicador.iniciarCliente();
+		comunicador();
 
 		return 0;
 	} catch(const std::exception& e) {

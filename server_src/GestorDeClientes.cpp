@@ -42,17 +42,19 @@ void GestorDeClientes::limpiarClientes(std::vector<ThCliente*>& clientes) {
 void GestorDeClientes::operator()() {
 	std::vector<ThCliente*> clientes;
 
+	this->socket.escuchar();
+
 	while (this->esta_conectado) {
-		if (this->socket.hayClientes() == SUCCESS){
+		try{
 			Peer peer = this->socket.aceptarCliente();
 
 			clientes.push_back(new ThCliente(peer, recursos));
 			clientes.back()->start();
 			GestorDeClientes::limpiarClientes(clientes);
+		} catch (const ErrorSocket& e) {
+			GestorDeClientes::terminarClientes(clientes);
 		}
 	}
-
-	GestorDeClientes::terminarClientes(clientes);
 }
 
 void GestorDeClientes::finalizar() {

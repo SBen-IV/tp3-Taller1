@@ -9,7 +9,7 @@
 #define MAX_CLIENTES 10
 
 Socket::Socket(const char* ip, const char* puerto, int flag) :
-				file_descriptor(FD_ERROR), peer(PEER_ERROR) {
+				file_descriptor(FD_ERROR) {
 	struct addrinfo hints;
 
 	memset(&hints, 0, sizeof(hints));
@@ -26,11 +26,10 @@ Socket::Socket(const char* ip, const char* puerto, int flag) :
 	}
 }
 
-void Socket::conectar() {
-	bool esta_conectado = false;
+Peer Socket::conectar() {
 	struct addrinfo* resultado_aux = this->resultado;
 
-	while (resultado_aux && !esta_conectado) {
+	while (resultado_aux) {
 		int _peer = socket(resultado_aux->ai_family,
 										resultado_aux->ai_socktype,
 										resultado_aux->ai_protocol);
@@ -38,8 +37,7 @@ void Socket::conectar() {
 		if (_peer != PEER_ERROR) {
 			if (connect(_peer, resultado_aux->ai_addr,
 						resultado_aux->ai_addrlen) == SUCCESS) {
-				this->peer = _peer;
-				esta_conectado = true;
+				return Peer(_peer);
 			} else {
 				close(_peer);
 			}
@@ -48,8 +46,8 @@ void Socket::conectar() {
 		resultado_aux = resultado_aux->ai_next;
 	}
 
-	if (!esta_conectado) throw ErrorConectar("No se pudo conectar con el"
-											" servidor.");
+	throw ErrorConectar("No se pudo conectar con el"
+						" servidor.");
 }
 
 void Socket::enlazar() {
@@ -82,26 +80,14 @@ void Socket::enlazar() {
 }
 
 
-int Socket::hayClientes() {
-	return listen(this->file_descriptor, MAX_CLIENTES);
+void Socket::escuchar() {
+	listen(this->file_descriptor, MAX_CLIENTES);
 }
 
 Peer Socket::aceptarCliente() {
 	Peer peer(accept(this->file_descriptor, NULL, NULL));
 	
 	return peer;
-}
-
-int Socket::enviar(const char* buffer, int cant_bytes) {
-	return this->peer.enviar(buffer, cant_bytes);
-}
-
-int Socket::recibir(char* buffer, int cant_bytes) {
-	return this->peer.recibir(buffer, cant_bytes);
-}
-
-void Socket::pararEnvio() {
-	this->peer.pararEnvio();
 }
 
 void Socket::parar() {

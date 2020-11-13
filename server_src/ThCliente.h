@@ -2,6 +2,7 @@
 #define THCLIENTE_H
 
 #include <atomic>
+#include <string>
 #include "../common_src/Thread.h"
 #include "../common_src/Peer.h"
 #include "../common_src/Parser.h"
@@ -18,6 +19,8 @@ public:
 	void stop() override;
 	bool termino() override;
 	~ThCliente();
+private:
+	void obtenerPetitorio(std::string& petitorio);
 };
 
 #endif
