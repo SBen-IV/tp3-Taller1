@@ -26,8 +26,6 @@ public:
 	void enlazar();
 	void escuchar();
 	Peer aceptarCliente();
-	int enviar(const char buffer[TAM_BUFFER], int cant_bytes);
-	int recibir(char* buffer, int cant_bytes);
 	void parar();
 	~Socket() noexcept;
 };

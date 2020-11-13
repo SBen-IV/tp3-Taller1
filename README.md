@@ -20,4 +20,6 @@ La siguiente problemática fue el uso del Socket. En un principio se utilizó un
 
 ![Diagrama de clase Socket](diagramas/class_Socket.png)
 
+Tanto `GestorDeClientes` como `Comunicador` reciben un `Peer` de `Socket` para iniciar el envio y recibo de mensajes. En el caso de `GestorDeClientes` usa el `Peer` para inicializar a `ThCliente` que se comunicará con `Comunicador`.
+
 De esta forma se pudieron solucionar las 2 problemáticas más importantes del TP siguiendo la estructura de la programación orientada a objetos.
