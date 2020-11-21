@@ -2,7 +2,7 @@
 
 #include <string>
 
-const char MENSAJE_ERROR[] = "HTTP/1.1 403 FORBIDDEN\n\n";
+static const char MENSAJE_ERROR[] = "HTTP/1.1 403 FORBIDDEN\n\n";
 
 PostRaiz::PostRaiz() {}
 

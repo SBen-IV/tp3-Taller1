@@ -1,8 +1,8 @@
 #include "Otro.h"
 #include <string>
 
-const char MENSAJE_DEFAULT[] = "HTTP/1.1 405 METHOD NOT ALLOWED\n\n";
-const char CMD_DESCONOCIDO[] = " es un comando desconocido\n";
+static const char MENSAJE_DEFAULT[] = "HTTP/1.1 405 METHOD NOT ALLOWED\n\n";
+static const char CMD_DESCONOCIDO[] = " es un comando desconocido\n";
 
 Otro::Otro() {}
 
