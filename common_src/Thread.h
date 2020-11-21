@@ -3,6 +3,8 @@
 
 #include <thread>
 
+//Thread representa un hilo. No se usa directamente sino que se hereda.
+
 class Thread {
 private:
 	std::thread thread;

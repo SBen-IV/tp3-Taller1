@@ -7,6 +7,9 @@
 
 #define MAX_MSJ_ERROR 200
 
+//ErrorSocket es una excepción que guarda un mensaje de error usado por la
+//clase Socket
+
 class ErrorSocket : public std::exception {
 private:
 	char msj_error[MAX_MSJ_ERROR];

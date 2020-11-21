@@ -5,6 +5,9 @@
 
 #include <string>
 
+//PostRaiz es un TipoMetodo que devuelve un mensaje de error siempre
+//dado que no es posible cambiar el contenido de la raiz.
+
 class PostRaiz : public TipoMetodo {
 public:
 	PostRaiz();

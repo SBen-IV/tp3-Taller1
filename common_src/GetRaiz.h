@@ -4,6 +4,9 @@
 #include "TipoMetodo.h"
 #include <string>
 
+//GetRaiz es un TipoMetodo que devuelve el contenido del recurso
+//raiz: '/'.
+
 class GetRaiz : public TipoMetodo {
 public:
 	GetRaiz();

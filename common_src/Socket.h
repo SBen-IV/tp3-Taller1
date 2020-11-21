@@ -14,6 +14,9 @@
 
 #define TAM_BUFFER 64
 
+//Socket es la clase encargada de inicializar, conectar/enlazar y aceptar
+//clientes. Funciona tanto para servidor como para cliente.
+
 class Socket {
 private:
 	struct addrinfo* resultado;

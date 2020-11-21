@@ -4,6 +4,10 @@
 #include "TipoMetodo.h"
 #include <string>
 
+//Post es un TipoMetodo que devuelve un mensaje con el contenido agregado a 
+//recursos con la clave recurso. Si el recurso ya existía, se pisa el
+//contenido.
+
 class Post : public TipoMetodo {
 public:
 	Post();

@@ -4,6 +4,8 @@
 #include <map>
 #include <string>
 
+//TipoMetodo es una clase abstracta, no tiene definición de los métodos.
+
 typedef std::map<std::string, std::string> Hash;
 
 class TipoMetodo {

@@ -8,6 +8,9 @@
 #include "../common_src/Parser.h"
 #include "../common_src/Recursos.h"
 
+//ThCliente hereda de Thread y se encarga de la comunicación con el cliente
+//como un servidor.
+
 class ThCliente : public Thread {
 private:
 	std::atomic<bool> esta_conectado;

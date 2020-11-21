@@ -4,6 +4,10 @@
 #include <string>
 #include <sstream>
 
+//Parser se encarga de separar el mensaje (obtenerPalabra) con el delimitador
+// espacio y separar el contenido desde una línea vacía a otra
+// (obtenerContenido).
+
 class Parser {
 private:
 	std::stringstream mensaje;

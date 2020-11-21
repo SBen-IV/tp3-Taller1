@@ -9,6 +9,9 @@
 #include "../common_src/Socket.h"
 #include "../common_src/Recursos.h"
 
+//GestroDeClientes se encarga de ir aceptando e inicializando los clientes
+//que van llegando para ser atendidos.
+
 class GestorDeClientes {
 private:
 	Socket socket;

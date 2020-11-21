@@ -4,6 +4,9 @@
 #include <fstream>
 #include <string>
 
+//Archivo encapsula los métodos para abrir, leer y cerrar un archivo cuyo
+//nombre fue pasado por el constructor.
+
 class Archivo {
 private:
 	std::fstream archivo;

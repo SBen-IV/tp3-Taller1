@@ -4,6 +4,9 @@
 #include "TipoMetodo.h"
 #include <string>
 
+//Get es un TipoMetodo que devuelve el contenido que está dentro de recursos
+//con la clave recurso. Si el recurso no existe, devuelve un mensaje de error.
+
 class Get : public TipoMetodo {
 public:
 	Get();

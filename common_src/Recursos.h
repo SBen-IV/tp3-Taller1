@@ -6,6 +6,9 @@
 
 #include "TipoMetodo.h"
 
+//Recursos es la clase que contiene el contenido de todos los recursos
+//que se agregan.
+
 class Recursos {
 private:
 	Hash recursos;

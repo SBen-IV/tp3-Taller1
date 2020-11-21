@@ -6,6 +6,9 @@
 
 #include "../common_src/Socket.h"
 
+//Comunicador se encarga de establecer conexión como cliente con el servidor,
+//enviando y recibiendo los mensajes.
+
 class Comunicador {
 private:
 	Socket socket;

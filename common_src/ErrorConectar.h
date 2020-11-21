@@ -6,6 +6,9 @@
 
 #define MAX_MSJ_ERROR 200
 
+//ErrorConectar es una excepción que guarda un mensaje describiendo un error
+//al conectarse en la clase Socket.
+
 class ErrorConectar : public std::exception {
 private:
 	char msj_error[MAX_MSJ_ERROR];

@@ -7,6 +7,9 @@
 #include <unistd.h>
 #include <cstring>
 
+//Peer tiene un peer pasado por el Socket. Se encarga de enviar y recibir
+//mensajes que se manden entre el servidor y el cliente.
+
 class Peer {
 private:
 	int peer;
