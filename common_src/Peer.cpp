@@ -14,7 +14,7 @@ Peer::Peer(const int _peer) {
 	this->peer = _peer;
 }
 
-int Peer::enviar(const char* buffer, int cant_bytes) {
+int Peer::enviar(const char* buffer, int cant_bytes) const {
 	int total_bytes_enviados = 0;
 	bool esta_abierto = true;
 
@@ -35,7 +35,7 @@ int Peer::enviar(const char* buffer, int cant_bytes) {
 	return total_bytes_enviados;
 }
 
-int Peer::recibir(char* buffer, int cant_bytes) {
+int Peer::recibir(char* buffer, int cant_bytes) const {
 	int total_bytes_recibidos = 0;
 	bool esta_abierto = true;
 
@@ -74,11 +74,11 @@ Peer& Peer::operator=(int otro) {
 	return *this;
 }
 
-void Peer::pararEnvio() {
+void Peer::pararEnvio() const {
 	if (this->peer != PEER_CERRADO) shutdown(this->peer, SHUT_WR);
 }
 
-void Peer::parar() {
+void Peer::parar() const {
 	if (this->peer != PEER_CERRADO) shutdown(this->peer, SHUT_RDWR);
 }
 

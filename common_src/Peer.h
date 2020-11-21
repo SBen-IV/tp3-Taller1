@@ -17,10 +17,10 @@ public:
 	Peer(Peer&& otro);
 	Peer& operator=(Peer&& otro);
 	Peer& operator=(int otro);
-	int enviar(const char* buffer, int cant_bytes);
-	int recibir(char* buffer, int cant_bytes);
-	void pararEnvio();
-	void parar();
+	int enviar(const char* buffer, int cant_bytes) const;
+	int recibir(char* buffer, int cant_bytes) const;
+	void pararEnvio() const;
+	void parar() const;
 	void cerrar();
 	~Peer();
 };
