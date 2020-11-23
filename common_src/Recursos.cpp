@@ -28,24 +28,22 @@ std::string Recursos::obtenerRespuesta(const std::string& metodo,
 										const std::string& recurso,
 										const std::string& contenido) {
 	std::string respuesta;
-	TipoMetodo* tipo_metodo = new Otro();
+	TipoMetodo* tipo_metodo;
 
 	if (metodo == GET) {
 		if (recurso == ARCHIVO_RAIZ){
-			delete tipo_metodo;
 			tipo_metodo = new GetRaiz();
 		} else {
-			delete tipo_metodo;
 			tipo_metodo = new Get();
 		}
 	} else if (metodo == POST) {
 		if (recurso == ARCHIVO_RAIZ) {
-			delete tipo_metodo;
 			tipo_metodo = new PostRaiz();
 		} else {
-			delete tipo_metodo;
 			tipo_metodo = new Post();
 		}
+	} else {
+		tipo_metodo = new Otro();
 	}
 
 	respuesta = tipo_metodo->obtener(this->recursos, metodo, recurso,
