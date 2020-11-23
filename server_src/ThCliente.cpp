@@ -6,10 +6,9 @@
 #define VACIO ""
 #define TAM_BUFFER 5
 
-ThCliente::ThCliente(Peer& _peer, Recursos& _recursos) :
-										esta_conectado(true),
-										recursos(_recursos),
-										peer(std::move(_peer)) {}
+ThCliente::ThCliente(Peer& _peer, RecursosProtected& _recursos) :
+					esta_conectado(true), recursos(_recursos),
+					peer(std::move(_peer)) {}
 
 void ThCliente::obtenerPetitorio(std::string& petitorio) {
 	char buffer[TAM_BUFFER] = VACIO;

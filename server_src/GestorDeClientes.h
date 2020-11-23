@@ -7,7 +7,7 @@
 
 #include "ThCliente.h"
 #include "../common_src/Socket.h"
-#include "../common_src/Recursos.h"
+#include "../common_src/RecursosProtected.h"
 
 //GestroDeClientes se encarga de ir aceptando e inicializando los clientes
 //que van llegando para ser atendidos.
@@ -15,7 +15,7 @@
 class GestorDeClientes {
 private:
 	Socket socket;
-	Recursos recursos;
+	RecursosProtected recursos;
 	std::atomic<bool> esta_conectado;
 public:
 	GestorDeClientes(const char* puerto, const char* _archivo_raiz);
