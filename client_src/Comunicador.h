@@ -18,7 +18,7 @@ public:
 	~Comunicador();
 private:
 	void leerEntradaEstandar(std::string& mensaje);
-	void recibirRespuesta(std::string& respuesta, Peer& peer);
+	void recibirRespuesta(std::string& respuesta, const Peer& peer);
 };
 
 #endif
