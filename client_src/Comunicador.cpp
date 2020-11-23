@@ -19,7 +19,7 @@ void Comunicador::leerEntradaEstandar(std::string& mensaje) {
 	} while (leidos > 0);
 }
 
-void Comunicador::recibirRespuesta(std::string& respuesta, Peer& peer) {
+void Comunicador::recibirRespuesta(std::string& respuesta, const Peer& peer) {
 	char buffer[TAM_BUFFER] = VACIO;
 	int bytes_recibidos = 0;
 
