@@ -1,5 +1,7 @@
 #include "Parser.h"
 
+#define VACIO ""
+
 Parser::Parser(const std::string& _mensaje) : mensaje(_mensaje) {}
 
 std::string Parser::obtenerPalabra() {
@@ -14,7 +16,7 @@ std::string Parser::obtenerContenido() {
 	std::getline(this->mensaje, aux, '\n');
 	do {
 		std::getline(this->mensaje, aux, '\n');
-	} while (aux != "" && !this->mensaje.eof()); // Cambiar condicion
+	} while (aux != VACIO && !this->mensaje.eof());
 
 	std::getline(this->mensaje, contenido, '\0');
 

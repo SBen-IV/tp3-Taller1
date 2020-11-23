@@ -2,14 +2,19 @@
 
 #include "Comunicador.h"
 
+#define POS_IP 1
+#define POS_PUERTO 2
+
+#define MIN_ARGS 3
+
 int main(int argc, char const *argv[]) {
-	if (argc < 3) {
+	if (argc < MIN_ARGS) {
 		std::cout << "./client <ip/hostname> <port/service>" << std::endl;
 		return 0;
 	}
 
 	try {
-		Comunicador comunicador(argv[1], argv[2]);
+		Comunicador comunicador(argv[POS_IP], argv[POS_PUERTO]);
 
 		comunicador();
 

@@ -7,14 +7,19 @@
 #define ESPACIO ' '
 #define CARACTER_CORTE 'q'
 
+#define POS_PUERTO 1
+#define POS_ROOT_FILE 2
+
+#define MIN_ARGS 3
+
 int main(int argc, char const *argv[]) {
-	if (argc < 3) {
+	if (argc < MIN_ARGS) {
 		std::cout << "./server <puerto/servicio> <root_file>" << std::endl;
 		return 1;
 	}
 
 	try {
-		GestorDeClientes gestor(argv[1], argv[2]);
+		GestorDeClientes gestor(argv[POS_PUERTO], argv[POS_ROOT_FILE]);
 		std::thread main_thread(&GestorDeClientes::operator(), &gestor);
 
 		char c = ESPACIO;
